@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deteksi Makanan</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
+</head>
+<body>
+
+    <div class="container">
+
+        <h1>🍔 Deteksi Makanan</h1>
+
+        <p id="status">Kamera tidak aktif</p>
+
+        <div class="button-group">
+
+            <button onclick="init()">
+                Aktifkan Kamera
+            </button>
+
+            <button onclick="stopWebcam()">
+                Matikan Kamera
+            </button>
+
+            <button onclick="resetDetection()">
+                Reset
+            </button>
+
+        </div>
+
+        <br>
+
+        <div id="webcam-container"></div>
+
+        <br>
+
+        <h3>Upload Gambar</h3>
+
+        <input
+            type="file"
+            id="imageUpload"
+            accept="image/*"
+        >
+
+        <br><br>
+
+        <img
+            id="previewImage"
+            width="300"
+            style="display:none; border-radius:10px;"
+        >
+
+        <br><br>
+
+        <div id="label-container"></div>
+
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
