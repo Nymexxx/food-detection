@@ -1,7 +1,61 @@
 const MODEL_URL = "https://teachablemachine.withgoogle.com/models/pblVcTHkm/";
 
+const foodInfo = {
+
+    "anggur": {
+        kategori: "Buah",
+        kalori: "69 kcal",
+        protein: "0.7 g",
+        karbohidrat: "18 g",
+        lemak: "0.2 g",
+        manfaat: "Mengandung antioksidan dan vitamin C yang baik untuk kesehatan jantung."
+    },
+
+    "roti": {
+        kategori: "Karbohidrat",
+        kalori: "265 kcal",
+        protein: "9 g",
+        karbohidrat: "49 g",
+        lemak: "3.2 g",
+        manfaat: "Memberikan energi untuk aktivitas sehari-hari."
+    },
+
+    "tempe": {
+        kategori: "Protein Nabati",
+        kalori: "193 kcal",
+        protein: "20 g",
+        karbohidrat: "9 g",
+        lemak: "11 g",
+        manfaat: "Tinggi protein dan baik untuk kesehatan pencernaan."
+    },
+
+    "ayam_goreng": {
+        kategori: "Protein Hewani",
+        kalori: "260 kcal",
+        protein: "27 g",
+        karbohidrat: "8 g",
+        lemak: "14 g",
+        manfaat: "Membantu pembentukan dan perbaikan jaringan tubuh."
+    },
+
+    "pasta": {
+        kategori: "Karbohidrat",
+        kalori: "131 kcal",
+        protein: "5 g",
+        karbohidrat: "25 g",
+        lemak: "1.1 g",
+        manfaat: "Sumber energi dari karbohidrat kompleks."
+    },
+
+    "bukan_makanan": {
+        kategori: "-",
+        manfaat: "Objek yang terdeteksi bukan makanan."
+    }
+};
+
 let model, webcam, labelContainer, maxPredictions;
 let isRunning = false;
+let lastClass = "";
 
 async function init() {
 
@@ -92,34 +146,27 @@ async function predict() {
     const prediction =
         await model.predict(webcam.canvas);
 
-    let hasil = "";
+    let bestPrediction = prediction[0];
 
     prediction.forEach(item => {
 
-        const persen =
-            (item.probability * 100)
-            .toFixed(2);
+        if(item.probability > bestPrediction.probability){
+            bestPrediction = item;
+        }
 
-        hasil += `
-            <div class="prediction-item">
-
-                <div class="prediction-header">
-                    <span>${item.className}</span>
-                    <span>${persen}%</span>
-                </div>
-
-                <div class="progress-bar">
-                    <div
-                        class="progress-fill"
-                        style="width:${persen}%">
-                    </div>
-                </div>
-
-            </div>
-        `;
     });
 
-    labelContainer.innerHTML = hasil;
+    if(bestPrediction.probability < 0.8){
+        return;
+    }
+
+    if(bestPrediction.className !== lastClass){
+
+        tampilkanPrediksi(prediction);
+
+        lastClass =
+            bestPrediction.className;
+    }
 }
 
 function stopWebcam() {
@@ -169,48 +216,6 @@ document.getElementById("imageUpload")
         tampilkanPrediksi(prediction);
     };
 });
-
-// Menampilkan hasil prediksi
-function tampilkanPrediksi(prediction){
-
-    let hasil = "";
-
-    prediction.forEach(item => {
-
-        hasil += `
-            <div>
-                ${item.className}
-                :
-                ${(item.probability * 100).toFixed(2)}%
-            </div>
-        `;
-    });
-
-    document.getElementById(
-        "label-container"
-    ).innerHTML = hasil;
-}
-
-// Reset
-function resetDetection(){
-
-    document.getElementById(
-        "label-container"
-    ).innerHTML = "";
-
-    document.getElementById(
-        "previewImage"
-    ).style.display = "none";
-
-    document.getElementById(
-        "imageUpload"
-    ).value = "";
-
-    document.getElementById("status")
-        .innerText = "Siap digunakan";
-
-    console.log("Reset berhasil");
-}
 
 async function init() {
 
@@ -310,25 +315,6 @@ async function loop() {
     window.requestAnimationFrame(loop);
 }
 
-async function predict() {
-
-    const prediction =
-        await model.predict(webcam.canvas);
-
-    for (let i = 0; i < maxPredictions; i++) {
-
-        const classPrediction =
-            prediction[i].className +
-            " : " +
-            (prediction[i].probability * 100)
-            .toFixed(2) +
-            "%";
-
-        labelContainer.childNodes[i].innerHTML =
-            classPrediction;
-    }
-}
-
 function stopWebcam() {
 
     if (!webcam) return;
@@ -380,32 +366,85 @@ document.getElementById("imageUpload")
 // Menampilkan hasil prediksi
 function tampilkanPrediksi(prediction){
 
-    let hasil = "";
+    let bestPrediction = prediction[0];
 
     prediction.forEach(item => {
 
-        const persen =
-            (item.probability * 100)
-            .toFixed(2);
+        if(item.probability > bestPrediction.probability){
+            bestPrediction = item;
+        }
+
+    });
+
+    const confidence =
+        (bestPrediction.probability * 100)
+        .toFixed(2);
+
+    const className =
+        bestPrediction.className
+        .toLowerCase()
+        .replaceAll(" ", "_");
+
+    const info =
+        foodInfo[className];
+
+    console.log("CLASS =", className);
+    console.log("INFO =", info);
+    console.log("MANFAAT =", info?.manfaat);
+
+    let hasil = `
+        <div class="result-food">
+
+            <h3>${formatNamaMakanan(bestPrediction.className)}</h3>
+
+            <p>
+                Akurasi: ${confidence}%
+            </p>
+
+        </div>
+    `;
+
+    if(info){
 
         hasil += `
-            <div class="prediction-item">
+            <div class="nutrition-grid">
 
-                <div class="prediction-header">
-                    <span>${item.className}</span>
-                    <span>${persen}%</span>
+                <div class="nutrition-card">
+                    <h4>Kategori</h4>
+                    <p>${info.kategori}</p>
                 </div>
 
-                <div class="progress-bar">
-                    <div
-                        class="progress-fill"
-                        style="width:${persen}%">
-                    </div>
+                <div class="nutrition-card">
+                    <h4>Kalori</h4>
+                    <p>${info.kalori || "-"}</p>
+                </div>
+
+                <div class="nutrition-card">
+                    <h4>Protein</h4>
+                    <p>${info.protein || "-"}</p>
+                </div>
+
+                <div class="nutrition-card">
+                    <h4>Karbohidrat</h4>
+                    <p>${info.karbohidrat || "-"}</p>
+                </div>
+
+                <div class="nutrition-card">
+                    <h4>Lemak</h4>
+                    <p>${info.lemak || "-"}</p>
                 </div>
 
             </div>
+
+            <div class="result-card">
+
+                <h2>Manfaat</h2>
+
+                <p>${info.manfaat}</p>
+
+            </div>
         `;
-    });
+    }
 
     document.getElementById(
         "label-container"
@@ -453,3 +492,11 @@ window.onload = async function(){
         "Model siap digunakan"
     );
 };
+
+function formatNamaMakanan(nama){
+
+    return nama
+        .replaceAll("_"," ")
+        .replace(/\b\w/g,
+            huruf => huruf.toUpperCase());
+}
