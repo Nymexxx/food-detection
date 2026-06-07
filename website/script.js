@@ -11,22 +11,13 @@ const foodInfo = {
         manfaat: "Mengandung antioksidan dan vitamin C yang baik untuk kesehatan jantung."
     },
 
-    "roti": {
-        kategori: "Karbohidrat",
-        kalori: "265 kcal",
-        protein: "9 g",
-        karbohidrat: "49 g",
-        lemak: "3.2 g",
-        manfaat: "Memberikan energi untuk aktivitas sehari-hari."
-    },
-
-    "tempe": {
-        kategori: "Protein Nabati",
-        kalori: "193 kcal",
-        protein: "20 g",
-        karbohidrat: "9 g",
-        lemak: "11 g",
-        manfaat: "Tinggi protein dan baik untuk kesehatan pencernaan."
+    "apel": {
+        kategori: "Buah",
+        kalori: "52 kcal",
+        protein: "0.3 g",
+        karbohidrat: "14 g",
+        lemak: "0.2 g",
+        manfaat: "Membantu menjaga kesehatan pencernaan dan daya tahan tubuh."
     },
 
     "ayam_goreng": {
@@ -38,6 +29,78 @@ const foodInfo = {
         manfaat: "Membantu pembentukan dan perbaikan jaringan tubuh."
     },
 
+    "burger": {
+        kategori: "Makanan Cepat Saji",
+        kalori: "295 kcal",
+        protein: "17 g",
+        karbohidrat: "30 g",
+        lemak: "12 g",
+        manfaat: "Menyediakan energi dan protein bagi tubuh."
+    },
+
+    "daging": {
+        kategori: "Protein Hewani",
+        kalori: "250 kcal",
+        protein: "26 g",
+        karbohidrat: "0 g",
+        lemak: "15 g",
+        manfaat: "Kaya zat besi dan protein untuk pembentukan otot."
+    },
+
+    "kentang_goreng": {
+        kategori: "Karbohidrat",
+        kalori: "312 kcal",
+        protein: "3.4 g",
+        karbohidrat: "41 g",
+        lemak: "15 g",
+        manfaat: "Sumber energi yang berasal dari karbohidrat."
+    },
+
+    "gado_gado": {
+        kategori: "Sayuran",
+        kalori: "180 kcal",
+        protein: "7 g",
+        karbohidrat: "20 g",
+        lemak: "8 g",
+        manfaat: "Mengandung serat dan berbagai vitamin dari sayuran."
+    },
+
+    "ikan_goreng": {
+        kategori: "Protein Hewani",
+        kalori: "206 kcal",
+        protein: "22 g",
+        karbohidrat: "0 g",
+        lemak: "12 g",
+        manfaat: "Mengandung protein dan omega-3 yang baik untuk tubuh."
+    },
+
+    "mie_goreng": {
+        kategori: "Karbohidrat",
+        kalori: "320 kcal",
+        protein: "8 g",
+        karbohidrat: "45 g",
+        lemak: "12 g",
+        manfaat: "Memberikan energi untuk aktivitas sehari-hari."
+    },
+
+    "nasi_goreng": {
+        kategori: "Karbohidrat",
+        kalori: "267 kcal",
+        protein: "6 g",
+        karbohidrat: "33 g",
+        lemak: "10 g",
+        manfaat: "Sumber energi yang cukup tinggi."
+    },
+
+    "nasi_padang": {
+        kategori: "Makanan Lengkap",
+        kalori: "450 kcal",
+        protein: "20 g",
+        karbohidrat: "50 g",
+        lemak: "18 g",
+        manfaat: "Mengandung kombinasi karbohidrat, protein, dan lemak."
+    },
+
     "pasta": {
         kategori: "Karbohidrat",
         kalori: "131 kcal",
@@ -47,15 +110,160 @@ const foodInfo = {
         manfaat: "Sumber energi dari karbohidrat kompleks."
     },
 
+    "pisang": {
+        kategori: "Buah",
+        kalori: "89 kcal",
+        protein: "1.1 g",
+        karbohidrat: "23 g",
+        lemak: "0.3 g",
+        manfaat: "Kaya kalium dan membantu menjaga tekanan darah."
+    },
+
+    "pizza": {
+        kategori: "Makanan Cepat Saji",
+        kalori: "266 kcal",
+        protein: "11 g",
+        karbohidrat: "33 g",
+        lemak: "10 g",
+        manfaat: "Mengandung karbohidrat dan protein sebagai sumber energi."
+    },
+
+    "rawon": {
+        kategori: "Makanan Berkuah",
+        kalori: "210 kcal",
+        protein: "15 g",
+        karbohidrat: "8 g",
+        lemak: "12 g",
+        manfaat: "Mengandung protein dan berbagai rempah khas Indonesia."
+    },
+
+    "rendang": {
+        kategori: "Protein Hewani",
+        kalori: "468 kcal",
+        protein: "22 g",
+        karbohidrat: "6 g",
+        lemak: "35 g",
+        manfaat: "Kaya protein dan zat besi untuk tubuh."
+    },
+
+    "roti": {
+        kategori: "Karbohidrat",
+        kalori: "265 kcal",
+        protein: "9 g",
+        karbohidrat: "49 g",
+        lemak: "3.2 g",
+        manfaat: "Memberikan energi untuk aktivitas sehari-hari."
+    },
+
+    "sate": {
+        kategori: "Protein Hewani",
+        kalori: "280 kcal",
+        protein: "20 g",
+        karbohidrat: "8 g",
+        lemak: "18 g",
+        manfaat: "Membantu memenuhi kebutuhan protein harian."
+    },
+
+    "sayur": {
+        kategori: "Sayuran",
+        kalori: "50 kcal",
+        protein: "2 g",
+        karbohidrat: "10 g",
+        lemak: "0.5 g",
+        manfaat: "Kaya vitamin, mineral, dan serat."
+    },
+
+    "soto": {
+        kategori: "Makanan Berkuah",
+        kalori: "150 kcal",
+        protein: "10 g",
+        karbohidrat: "10 g",
+        lemak: "7 g",
+        manfaat: "Membantu memenuhi kebutuhan cairan dan protein."
+    },
+
+    "tahu": {
+        kategori: "Protein Nabati",
+        kalori: "144 kcal",
+        protein: "15 g",
+        karbohidrat: "3 g",
+        lemak: "8 g",
+        manfaat: "Sumber protein nabati yang baik untuk tubuh."
+    },
+
+    "telur": {
+        kategori: "Protein Hewani",
+        kalori: "155 kcal",
+        protein: "13 g",
+        karbohidrat: "1.1 g",
+        lemak: "11 g",
+        manfaat: "Mengandung protein berkualitas tinggi dan vitamin penting."
+    },
+
+    "tempe": {
+        kategori: "Protein Nabati",
+        kalori: "193 kcal",
+        protein: "20 g",
+        karbohidrat: "9 g",
+        lemak: "11 g",
+        manfaat: "Tinggi protein dan baik untuk kesehatan pencernaan."
+    },
+
     "bukan_makanan": {
         kategori: "-",
+        kalori: "-",
+        protein: "-",
+        karbohidrat: "-",
+        lemak: "-",
         manfaat: "Objek yang terdeteksi bukan makanan."
     }
+
 };
+
+function tampilkanGrafik(info){
+
+    const ctx =
+        document.getElementById(
+            "nutritionChart"
+        );
+
+    if(nutritionChart){
+        nutritionChart.destroy();
+    }
+
+    nutritionChart =
+        new Chart(ctx, {
+
+        type: "bar",
+
+        data: {
+
+            labels: [
+                "Protein",
+                "Karbohidrat",
+                "Lemak"
+            ],
+
+            datasets: [{
+
+                label: "Kandungan (gram)",
+
+                data: [
+
+                    parseFloat(info.protein) || 0,
+                    parseFloat(info.karbohidrat) || 0,
+                    parseFloat(info.lemak) || 0
+
+                ]
+            }]
+        }
+    });
+}
 
 let model, webcam, labelContainer, maxPredictions;
 let isRunning = false;
 let lastClass = "";
+let nutritionChart = null;
 
 async function init() {
 
@@ -406,6 +614,8 @@ function tampilkanPrediksi(prediction){
 
     if(info){
 
+        tampilkanGrafik(info);
+
         hasil += `
             <div class="nutrition-grid">
 
@@ -453,6 +663,11 @@ function tampilkanPrediksi(prediction){
 
 // Reset
 function resetDetection(){
+
+    if(nutritionChart){
+    nutritionChart.destroy();
+    nutritionChart = null;  
+    }
 
     document.getElementById(
         "label-container"
